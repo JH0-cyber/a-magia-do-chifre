@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Final - A Magia do Chifre</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @keyframes quebrarCamera {
+      0% { transform: scale(1) rotate(0deg); }
+      20% { transform: scale(1.05) rotate(-2deg); }
+      40% { transform: scale(1.1) rotate(2deg); }
+      60% { transform: scale(1.2) rotate(0deg); }
+      80% { transform: scale(1.3) rotate(5deg); }
+      100% { opacity: 0; transform: scale(0) rotate(720deg); }
+    }
+    .cutscene {
+      background: url('flores.jpg') no-repeat center center;
+      background-size: cover;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      animation: fade 3s ease-in-out;
+    }
+    .eromadeite {
+      background: red;
+      width: 200px;
+      height: 300px;
+      position: relative;
+      animation: quebrarCamera 5s ease-in-out forwards;
+    }
+    .eromadeite::before, .eromadeite::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 80px;
+      background: black;
+      top: -60px;
+    }
+    .eromadeite::before {
+      left: 30px;
+      transform: rotate(-10deg);
+    }
+    .eromadeite::after {
+      right: 30px;
+      transform: rotate(10deg);
+    }
+    .final {
+      display: none;
+      color: white;
+      font-size: 2em;
+      text-align: center;
+      background: black;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      animation: fade 2s ease-in forwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="cutscene" id="cutscene">
+    <div class="eromadeite"></div>
+    <p style="color:white; font-size: 1.5em; margin-top: 20px;">Eroma... (glitchando)</p>
+  </div>
+  <div class="final" id="final">
+    <p>A Magia do Chifre - Fim<br><br>Quetapiton Studio 2025</p>
+    <a href="jogo.html">Reiniciar</a>
+</div>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById("cutscene").style.display = 'none';
+      document.getElementById("final").style.display = 'flex';
+    }, 6000);
+  </script>
+</body>
+</html>

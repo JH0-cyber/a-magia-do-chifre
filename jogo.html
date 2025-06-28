@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gameplay - A Magia do Chifre</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body class="fade-in">
+  <div id="game-area">
+    <div id="dialogo"></div>
+    <div id="puzzle" style="display:none;">
+      <p>Digite a Palavra-Chave Arcana:</p>
+      <input type="text" id="resposta" placeholder="ex: Jotaigo">
+      <button onclick="verificarSenha()">Enviar</button>
+    </div>
+    <div id="boss" style="display:none;">
+      <p>Você forjou a Lança de Cornohálito! Clique 4 vezes para atacar o Guardião.</p>
+      <button onclick="atacar()">ATACAR</button>
+      <p id="contador">Ataques: 0</p>
+    </div>
+    <p class="marca">Quetapiton Studio 2025</p>
+  </div>
+  <script>
+    let ataques = 0;
+
+    window.onload = () => {
+      mostrarDialogos([
+        "Onde estou?...",
+        "?Eroma?: Você chegou tarde demais...",
+        "Você precisa achar a Palavra-Chave Arcana!"
+      ], () => {
+        document.getElementById("puzzle").style.display = "block";
+      });
+    };
+
+    function mostrarDialogos(frases, callback) {
+      const div = document.getElementById("dialogo");
+      let i = 0;
+      div.innerText = frases[i];
+      const intervalo = setInterval(() => {
+        i++;
+        if (i < frases.length) {
+          div.innerText = frases[i];
+        } else {
+          clearInterval(intervalo);
+          div.innerText = "";
+          if (callback) callback();
+        }
+      }, 3000);
+    }
+
+    function verificarSenha() {
+      const resp = document.getElementById("resposta").value;
+      if (resp === "Jotaigo") {
+        document.getElementById("puzzle").style.display = "none";
+        mostrarDialogos([
+          "Portão das Crinas aberto...",
+          "Um espelho se quebra à sua frente...",
+          "O Guardião apareceu!"
+        ], () => {
+          document.getElementById("boss").style.display = "block";
+        });
+      } else {
+        alert("Palavra incorreta!");
+      }
+    }
+
+    function atacar() {
+      ataques++;
+      document.getElementById("contador").innerText = "Ataques: " + ataques;
+      if (ataques >= 4) {
+        document.getElementById("boss").style.display = "none";
+        mostrarDialogos([
+          "O Guardião explode em pétalas negras...",
+          "Você sente um poder antigo ao seu redor...",
+          "?Eroma?: A Magia do Chifre é viva...",
+          "Vire-se."
+        ], () => {
+          window.location.href = "final.html";
+        });
+      }
+    }
+  </script>
+</body>
+</html>
